@@ -1,0 +1,16 @@
+{
+  "name": "forkify-web-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "keywords": [],
+  "author": "Alex Sencion",
+  "license": "ISC",
+  "description": "Recipe Web Application",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.16.4",
+    "parcel": "^2.16.4"
+  }
+}
