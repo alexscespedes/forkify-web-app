@@ -4,15 +4,16 @@ import * as model from "./model";
 import recipeView from "./views/recipeView";
 import searchView from "./views/searchView";
 import resultsView from "./views/resultsView";
+import paginationView from "./views/paginationView";
 
 // NEW API URL (instead of the one shown in the video)
 // https://forkify-api.jonas.io
 
 ///////////////////////////////////////
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
 
 const controlRecipies = async function () {
   try {
@@ -44,14 +45,26 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 3) Render results
-    resultsView.render(model.state.search.results);
+    resultsView.render(model.getSearchResultsPage());
+
+    // 4) Render initial pagination buttons
+    paginationView.render(model.state.search);
   } catch (err) {
     console.log(err);
   }
 };
 
+const controlPagination = function (goToPage) {
+  // 1) Render New Results
+  resultsView.render(model.getSearchResultsPage(goToPage));
+
+  // 2) Render New Pagination Buttons
+  paginationView.render(model.state.search);
+};
+
 const init = function () {
   recipeView.addHandlerRender(controlRecipies);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 };
 init();
